@@ -1,10 +1,10 @@
-# Formstack
+[Formstack v2 API Documentation]
+
+# Formstack Ruby Gem
 
 This is a Ruby client to v2 of the Formstack API. It has a low level
 call-for-call functional style API and a higher level object style API.
-Examples!
-
-[Formstack v2 API Documentation]
+Let's see some examples!
 
 ```ruby
 # Fetch all forms at once
@@ -22,7 +22,7 @@ form.submissions
 
 # Create a new item from the collection
 form.fields.create(type: "string", label: "New Field") # => <Field...>
-form.submissions.create
+form.submissions.create => <Submission...>
 
 # Update a form
 form.update(active: false)
@@ -30,13 +30,17 @@ form.update(active: false)
 # Copy a form
 form.copy # => Returns the newly copied form
 
+# Reload a form (useful to convert a list version of an object to a show
+# version--the API returns different object structures for each endpoint)
+form.load
+
 # Delete a form
 form.delete
 ```
 
-Each of the individual objects can be updated or deleted just like a
-form. There is also a `create` class method on each of the underlying
-classes if you would rather say
+Each of the individual objects (fields, submissions, etc.) can be
+loaded, updated, or deleted just like a form. There is also a `create`
+class method on each of the underlying classes if you would rather say
 `Formstack::Field.create(form_id, field_attributes)`.
 
 There is also a `Client` class that defines each endpoint as a seperate
@@ -56,7 +60,7 @@ client.fields(form_id)
 #...
 ```
 
-To see a full list checkout the [Client class].
+To see a full list of methods check out the [Client class].
 
 ## Installation
 
@@ -76,9 +80,13 @@ Or install it yourself as:
 
 ## Setup
 
-In order to get rolling simply follow the installation instructions
-above and then set the `FORMSTACK_ACCESS_TOKEN` environment variable to
-a valid access token for your account. You're good to go!
+In order to get rolling, follow the installation instructions above and
+then set the `FORMSTACK_ACCESS_TOKEN` environment variable to a valid
+access token for your account. You're good to go!
+
+If you don't know your access token you can create a new one for your
+account on the [Formstack API Applications] page.
+
 
 ## Development
 
@@ -102,4 +110,5 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/waterm
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
 [Formstack v2 API Documentation]: https://developers.formstack.com/v2.0
+[Formstack API Applications]: https://www.formstack.com/admin/apiKey/main
 [Client class]: https://github.com/watermarkchurch/formstack/blob/master/lib/formstack/client.rb
