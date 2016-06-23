@@ -35,6 +35,15 @@ RSpec.describe Formstack::Model do
       expect(objects.size).to eq(1)
       expect(objects.first["id"]).to eq(1)
     end
+
+    it "allows calling create on returned array" do
+      allow(client).to receive(:tests).and_return([{}])
+      allow(client).to receive(:create_test).with(123, :attributes).and_return({ "id" => "123" })
+      allow(client).to receive(:test).with("123").and_return({ "id" => "123" })
+      collection = subclass.all(123)
+      created = collection.create(:attributes)
+      expect(created[:id]).to eq("123")
+    end
   end
 
   describe "::find" do
@@ -52,6 +61,12 @@ RSpec.describe Formstack::Model do
       object = subclass.create(name: "val")
       expect(client).to have_received(:test).with(123)
       expect(object).to be_a(subclass)
+    end
+
+    it "does not load object on error" do
+      allow(client).to receive(:create_test).and_return({ "status" => "error" })
+      object = subclass.create
+      expect(object["status"]).to eq("error")
     end
   end
 

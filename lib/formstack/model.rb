@@ -1,4 +1,5 @@
 require 'forwardable'
+require 'formstack/collection'
 
 module Formstack
   module Model
@@ -40,7 +41,7 @@ module Formstack
     module ClassMethods
 
       def all(*args)
-        new_from_response client.public_send("#{client_method}s", *args)
+        new_from_response client.public_send("#{client_method}s", *args), context: args
       end
 
       def find(*args)
@@ -49,16 +50,16 @@ module Formstack
 
       def create(*args)
         new_from_response(client.public_send("create_#{client_method}", *args)).tap do |obj|
-          obj.load
+          obj.load if obj[:id]
         end
       end
 
-      def new_from_response(response)
+      def new_from_response(response, context: [])
         if response.respond_to?(:has_key?) && response.has_key?(response_nesting)
           response = response[response_nesting]
         end
         if response.is_a?(Array)
-          response.map { |item| new item }
+          Collection.new(response.map { |item| new item }, klass: self, context: context)
         else
           new response
         end
