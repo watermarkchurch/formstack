@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/watermarkchurch/formstack.svg?style=svg)](https://circleci.com/gh/watermarkchurch/formstack)
+[![Gem Version](https://badge.fury.io/rb/formstack_client.svg)](https://badge.fury.io/rb/formstack_client)
 
 # Formstack Ruby Gem
 
