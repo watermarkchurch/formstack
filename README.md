@@ -1,4 +1,4 @@
-[Formstack v2 API Documentation]
+[![CircleCI](https://circleci.com/gh/watermarkchurch/formstack.svg?style=svg)](https://circleci.com/gh/watermarkchurch/formstack)
 
 # Formstack Ruby Gem
 
@@ -100,6 +100,11 @@ install`. To release a new version, update the version number in
 a git tag for the version, push git commits and tags, and push the
 `.gem` file to [rubygems.org](https://rubygems.org).
 
+This project also uses the `dotenv` gem. You can create a `.env` file
+and add your `FORMSTACK_ACCESS_TOKEN` environment variable so that when
+you launch a console with `rake pry` your configuration will already be
+set.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/watermarkchurch/formstack.
@@ -108,6 +113,10 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/waterm
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Resources
+
+The spec this library was built from: [Formstack v2 API Documentation]
 
 [Formstack v2 API Documentation]: https://developers.formstack.com/v2.0
 [Formstack API Applications]: https://www.formstack.com/admin/apiKey/main
