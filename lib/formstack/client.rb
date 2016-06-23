@@ -1,3 +1,4 @@
+require 'forwardable'
 require 'formstack/connection'
 
 module Formstack
