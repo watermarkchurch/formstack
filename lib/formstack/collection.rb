@@ -1,3 +1,5 @@
+require 'delegate'
+
 module Formstack
   class Collection < SimpleDelegator
     def initialize(array, klass:, context: [])
