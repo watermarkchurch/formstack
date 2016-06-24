@@ -41,6 +41,16 @@ RSpec.describe Formstack::Form do
       expect(fields.first["id"]).to eq("456")
     end
 
+    it "allows creating on the array when read from cache" do
+      allow(client).to receive(:create_field).with("form-123", name: "Foo").and_return("id" => "field-456")
+      allow(client).to receive(:field).with("field-456").and_return("id" => "field-456")
+      object = described_class.new("id" => "form-123", "fields" => ["id" => "field-123"])
+      fields = object.fields
+      new_field = fields.create(name: "Foo")
+      expect(new_field).to be_a(Formstack::Field)
+      expect(new_field["id"]).to eq("field-456")
+    end
+
     it "caches the value" do
       object = described_class.new("fields" => ["id" => "123"])
       fields = object.fields

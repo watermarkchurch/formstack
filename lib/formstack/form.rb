@@ -10,7 +10,8 @@ module Formstack
 
     def fields
       @fields ||= if self[:fields]
-                    self[:fields].map { |f| Field.new(f) }
+                    fields = self[:fields].map { |f| Field.new(f) }
+                    Collection.new(fields, klass: Field, context: [self[:id]])
                   else
                     Field.all(self[:id])
                   end
