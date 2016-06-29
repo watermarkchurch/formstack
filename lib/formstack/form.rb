@@ -29,6 +29,10 @@ module Formstack
       @notification_emails ||= NotificationEmail.all(self[:id])
     end
 
+    def url_key
+      URI.parse(self[:url]).path.split("/").last
+    end
+
     def webhooks
       @webhooks ||= Webhook.all(self[:id])
     end

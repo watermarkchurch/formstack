@@ -100,6 +100,16 @@ RSpec.describe Formstack::Form do
     end
   end
 
+  describe "#url_key" do
+    let(:key) { "test_form_#{("a".."z").to_a.sample}" }
+    let(:url) { "https://test.formstack.com/forms/#{key}" }
+
+    it "parses the key from the API url" do
+      object = described_class.new("url" => url)
+      expect(object.url_key).to eq(key)
+    end
+  end
+
   describe "#webhooks" do
     it "delegates to Webhook.all with id attribute" do
       object = described_class.new("id" => "123")
